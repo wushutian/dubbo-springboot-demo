@@ -5,15 +5,15 @@ Dubbo是阿里巴巴公司开源的一个高性能优秀的服务框架，使得
 ## **一、运行工具与环境**
 
 运行环境：JDK 8，Maven 3.3+
-技术栈：SpringBoot 2.0+、Dubbo 2.6+、ZooKeeper 3.3+
+技术栈：SpringBoot 2.4+、Dubbo 3.0+、ZooKeeper 3.3+
 工具：IntelliJ IDEA、谷歌浏览器
 
 ## **二、Springboot快速集成Dubbo关键的依赖**
 ```maven
 <dependency>
-    <groupId>com.alibaba.boot</groupId>
+    <groupId>org.apache.dubbo</groupId>
     <artifactId>dubbo-spring-boot-starter</artifactId>
-    <version>0.2.0</version>
+    <version>3.0.7</version>
 </dependency>
 ```
 
@@ -57,11 +57,7 @@ Dubbo的重新维护，不切实际疯狂维护，给RPC又添加了生机，结
 
 ## 项目地址
 
-#### 码云：[https://gitee.com/smirk/dubbo-springboot](https://gitee.com/smirk/dubbo-springboot)
-
-#### github：[https://github.com/xiaoze-smirk/dubbo-springboot](https://github.com/xiaoze-smirk/dubbo-springboot)
+#### github：[https://gitee.com/wushutian/dubbo-springboot-demo](https://github.com/xiaoze-smirk/dubbo-springboot)
 
 ------
 
-smirk小泽   
-2018 年 06月29日    
