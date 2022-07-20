@@ -1,6 +1,5 @@
 package com.xiaoze.provider.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.xiaoze.api.service.DemoService;
 import com.xiaze.api.vo.HelloParamVo;
 import org.apache.dubbo.config.annotation.DubboService;
@@ -11,11 +10,11 @@ import org.apache.dubbo.config.annotation.DubboService;
  * @author xiaoze
  * @date 2018/6/7
  */
-@DubboService(cluster = "failover",  group = "Demo1", retries = 2, version = "${demo.service.version}",
+@DubboService(cluster = "failover", validation = "true", group = "Demo2", retries = 2, version = "${demo.service.version}", actives = 1,
         methods = {
 
 }, registry = {"zookeeper2181", "zookeeper2182"})
-public class DemoServiceImpl implements DemoService {
+public class DemoServiceImpl2 implements DemoService {
 
     @Override
     public String sayHello(HelloParamVo param) {
@@ -24,6 +23,6 @@ public class DemoServiceImpl implements DemoService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return "Hello, " + param.getName() + " count "+ param.getCount() +" (from Spring Boot)";
+        return "Hello, " + param.getName() + " count "+ param.getCount() +" (from Spring Boot)2";
     }
 }

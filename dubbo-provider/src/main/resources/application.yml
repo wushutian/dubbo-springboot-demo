@@ -1,8 +1,12 @@
+server:
+  port: 8112
 demo.service.version: 1.0.0
+
 dubbo:
   application:
     name: dubbo-provider
     register-mode: instance
+    logger: log4j
   protocol:
     name: dubbo
     port: 20880
@@ -16,5 +20,6 @@ dubbo:
     zookeeper2182:
       register: true
       address: zookeeper://localhost:2182
+
   provider:
     timeout: 10000
