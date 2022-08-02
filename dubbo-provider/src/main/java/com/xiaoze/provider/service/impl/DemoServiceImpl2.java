@@ -4,6 +4,8 @@ import com.xiaoze.api.service.DemoService;
 import com.xiaze.api.vo.HelloParamVo;
 import org.apache.dubbo.config.annotation.DubboService;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * DemoServiceImpl
  * 服务提供类
@@ -24,5 +26,18 @@ public class DemoServiceImpl2 implements DemoService {
             e.printStackTrace();
         }
         return "Hello, " + param.getName() + " count "+ param.getCount() +" (from Spring Boot)2";
+    }
+
+    @Override
+    public CompletableFuture<String> sayAsyncHello(String name) {
+        // 建议为supplyAsync提供自定义线程池，避免使用JDK公用线程池
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return "async response from provider.";
+        });
     }
 }

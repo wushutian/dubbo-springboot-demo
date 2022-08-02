@@ -4,6 +4,10 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.xiaoze.api.service.DemoService;
 import com.xiaze.api.vo.HelloParamVo;
 import org.apache.dubbo.config.annotation.DubboService;
+import org.apache.dubbo.rpc.RpcContext;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 /**
  * DemoServiceImpl
@@ -25,5 +29,19 @@ public class DemoServiceImpl implements DemoService {
             e.printStackTrace();
         }
         return "Hello, " + param.getName() + " count "+ param.getCount() +" (from Spring Boot)";
+    }
+
+    @Override
+    public CompletableFuture<String> sayAsyncHello(String name) {
+
+        // 建议为supplyAsync提供自定义线程池，避免使用JDK公用线程池
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return "async response from provider.";
+        });
     }
 }

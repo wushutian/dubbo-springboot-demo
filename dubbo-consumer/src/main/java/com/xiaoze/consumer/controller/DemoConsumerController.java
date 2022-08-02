@@ -3,11 +3,18 @@ package com.xiaoze.consumer.controller;
 import com.xiaoze.api.service.DemoService;
 import com.xiaze.api.vo.HelloParamVo;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.apache.dubbo.config.annotation.Method;
 import org.apache.dubbo.rpc.RpcContext;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import org.apache.dubbo.rpc.RpcContext;
 
@@ -100,7 +107,18 @@ public class DemoConsumerController {
             */
             loadbalance = "random",
             timeout = 10000,
-    mock = "com.xiaoze.consumer.mock.DemoMockServiceImpl")
+    mock = "com.xiaoze.consumer.mock.DemoMockServiceImpl",
+
+            /**
+             * 方法级别设置
+             * async=true 方法以异步的方式运行
+             */
+    methods = {@Method(name = "sayAsyncHello", async = true)},
+            /**
+             * 连接粘连-始终只使用第一次连接到的服务
+            */
+            sticky = true
+    )
     private DemoService demoService;
 
     public static AtomicInteger cri = new AtomicInteger();
@@ -114,5 +132,21 @@ public class DemoConsumerController {
 //        RpcContext.getContext().setObjectAttachment("address", address);
         return demoService.sayHello(helloParamVo);
     }
+
+    @RequestMapping("/asyncSayHello")
+    public String asyncSayHello(String name) {
+        CompletableFuture<String> future = demoService.sayAsyncHello("123");
+        try {
+            return future.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
 
 }

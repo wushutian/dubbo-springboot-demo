@@ -2,6 +2,8 @@ package com.xiaoze.api.service;
 
 import com.xiaze.api.vo.HelloParamVo;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * DemoService
  * 服务Api接口类
@@ -12,6 +14,6 @@ public interface DemoService {
 
     String sayHello(HelloParamVo param);
 
-
+    CompletableFuture<String> sayAsyncHello(String name);
 
 }
